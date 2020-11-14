@@ -1,33 +1,15 @@
 const { response } = require("express");
 const express = require("express");
 const { hostname } = require("os");
-
-
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://vodomerUser:Pepelatz01@cluster0.eneo3.mongodb.net/vodomerDb?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true,useUnifiedTopology: true });
-//console.log('client', client);
-client.connect(err => {
-    if(err){
-        console.log(err);
-        return;
-    }
-    const collection = client.db("vodomerDb").collection("counters");
-    let hot = {hot: 123};
-    collection.insertOne(hot, function(err, result){
-        if(err){ 
-            return console.log(err);
-           }
-    console.log(result.ops);
-    client.close();
-});
-  
-});
-
+const bs = require('body-parser');
+const db = require("./database");
 
 
 // создаем сервер
 const srv = express();
+// create application/json parser
+var jsonParser = bs.json();
+
 // определяем обработчик для маршрута "/"
 srv.get("/", (request, response) => {
     response.send("<h2>Здесь будет сайт водомера</h2>");
@@ -38,7 +20,8 @@ srv.get("/water/hot" , (request, response) => {
 });
 
 // запись текущего значения счетчика горячей воды
-srv.post("/water/hot" , (request, response) => {
+srv.post("/water/hot", jsonParser, (request, response) => {
+    db.SetHotCount(request.body.hot);
     response.status(200).send('Ok');
 });
 
