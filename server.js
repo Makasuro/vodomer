@@ -31,17 +31,19 @@ srv.get("/water/cold" , async (request, response) => {
 });
 
 // запись текущего значения счетчика холодной воды
-srv.post("/water/cold" ,jsonParser, (request, response) => {
+srv.post("/water/cold", jsonParser, (request, response) => {
     db.SetColdCount(request.body.cold);
     response.status(200).send();
 });
 
 // получение значений счетчиков за предыдущий месяц
-srv.get("/history/last" , (request, response) => {
-    response.send({hot:1234,cold:1234, date:'01.01.2020'});
+srv.get("/history/last" , async (request, response) => {
+    const last = await db.GetLastRecord();
+    response.status(200).send({hot: last.hot ,cold: last.cold , date: last.date });
 });
 // запись текущего состояния счетчиков в данном месяце
-srv.post("/history/last" , (request, response) => {
+srv.post("/history/last", jsonParser, async (request, response) => {
+    await db.SetLastRecord(request.body.hot, request.body.cold);
     response.status(200).send('Ok');
 });
 // получение истории за период для построения графиков
