@@ -3,6 +3,7 @@ const express = require("express");
 const { hostname } = require("os");
 const bs = require('body-parser');
 const db = require("./database");
+const mail = require("./mail");
 
 
 // создаем сервер
@@ -10,6 +11,13 @@ const srv = express();
 
 // create application/json parser
 var jsonParser = bs.json();
+
+// отправка письма
+srv.post("/api/mail", jsonParser, async (request, response) => {
+    let res = await mail.MakeMailBody();
+    console.log(res);
+    response.status(200).send();
+});
 
 // определяем обработчик для маршрута "/"
 srv.get("/", (request, response) => {

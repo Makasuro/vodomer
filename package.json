@@ -84,6 +84,7 @@
       "version": "1.8.1"
     },
     "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
     "finalhandler": {
       "integrity": "sha512-aAWcW57uxVNrQZqFXjITpW3sIUQmHGG3qSb9mUah9MgMC4NeWhNOlNjXEYq3HjRAvL6arUviZGGJsBg6z0zsWA==",
       "requires": {
@@ -108,6 +109,7 @@
       "resolved": "https://registry.npmjs.org/fresh/-/fresh-0.5.2.tgz",
       "version": "0.5.2"
     },
+    "handlebars": "^4.7.6",
     "http-errors": {
       "integrity": "sha512-uUQBt3H/cSIVfch6i1EuPNy/YsRSOUBXTVfZ+yR7Zjez3qjBz6i9+i4zjNaoqcoFVI4lQJ5plg63TvGfRSDCRg==",
       "requires": {
@@ -182,6 +184,7 @@
       "resolved": "https://registry.npmjs.org/negotiator/-/negotiator-0.6.2.tgz",
       "version": "0.6.2"
     },
+    "nodemailer": "^6.4.16",
     "on-finished": {
       "integrity": "sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=",
       "requires": {
