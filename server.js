@@ -7,6 +7,7 @@ const db = require("./database");
 
 // создаем сервер
 const srv = express();
+
 // create application/json parser
 var jsonParser = bs.json();
 
@@ -14,6 +15,7 @@ var jsonParser = bs.json();
 srv.get("/", (request, response) => {
     response.send("<h2>Здесь будет сайт водомера</h2>");
 });
+
 // получение текущего значения счетчика горячей воды
 srv.get("/water/hot" , async (request, response) => {
     response.send({hot: await db.GetCount('hot')});
@@ -41,13 +43,17 @@ srv.get("/history/last" , async (request, response) => {
     const last = await db.GetLastRecord();
     response.status(200).send({hot: last.hot ,cold: last.cold , date: last.date });
 });
+
 // запись текущего состояния счетчиков в данном месяце
 srv.post("/history/last", jsonParser, async (request, response) => {
     await db.SetLastRecord(request.body.hot, request.body.cold);
     response.status(200).send('Ok');
 });
+
 // получение истории за период для построения графиков
-srv.get("/history/period" , (request, response) => {
-    response.send([{hot:1234,cold:1234, date:'01.01.2020'},{hot:1234,cold:1234, date:'01.02.2020'}]);
+srv.get("/history/period" , async (request, response) => {
+    let result = await db.GetHistory();
+    response.send(result);
 });
+
 srv.listen(1337);

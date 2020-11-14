@@ -2,7 +2,12 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://vodomerUser:Pepelatz01@cluster0.eneo3.mongodb.net/vodomerDb?retryWrites=true&w=majority";
 
 exports.GetHistory = async (dateFrom, dateTo) => {
-    
+    let client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+    const collection = client.db("vodomerDb").collection("history");
+    let result = await collection.find().toArray();
+    client.close();
+    return result;
 };
 
 exports.SetLastRecord = async (hot, cold) => {
