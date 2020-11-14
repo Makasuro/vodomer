@@ -15,8 +15,8 @@ srv.get("/", (request, response) => {
     response.send("<h2>Здесь будет сайт водомера</h2>");
 });
 // получение текущего значения счетчика горячей воды
-srv.get("/water/hot" , (request, response) => {
-    response.send({hot:1234});
+srv.get("/water/hot" , async (request, response) => {
+    response.send({hot: await db.GetCount('hot')});
 });
 
 // запись текущего значения счетчика горячей воды
@@ -26,8 +26,8 @@ srv.post("/water/hot", jsonParser, (request, response) => {
 });
 
 // получение текущего значения счетчика холодной воды
-srv.get("/water/cold" , (request, response) => {
-    response.send({cold:1234});
+srv.get("/water/cold" , async (request, response) => {
+       response.send({cold: await db.GetCount('cold')});
 });
 
 // запись текущего значения счетчика холодной воды
