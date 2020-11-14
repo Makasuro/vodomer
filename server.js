@@ -22,7 +22,7 @@ srv.get("/water/hot" , (request, response) => {
 // запись текущего значения счетчика горячей воды
 srv.post("/water/hot", jsonParser, (request, response) => {
     db.SetHotCount(request.body.hot);
-    response.status(200).send('Ok');
+    response.status(200).send();
 });
 
 // получение текущего значения счетчика холодной воды
@@ -31,8 +31,9 @@ srv.get("/water/cold" , (request, response) => {
 });
 
 // запись текущего значения счетчика холодной воды
-srv.post("/water/cold" , (request, response) => {
-    response.status(200).send('Ok');
+srv.post("/water/cold" ,jsonParser, (request, response) => {
+    db.SetColdCount(request.body.cold);
+    response.status(200).send();
 });
 
 // получение значений счетчиков за предыдущий месяц
