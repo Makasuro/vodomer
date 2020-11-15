@@ -14,7 +14,10 @@ var jsonParser = bs.json();
 
 // отправка письма
 srv.post("/api/mail", jsonParser, async (request, response) => {
-    let letter = await mail.MakeMailBody(100,110,10,90,95,5);
+    const last = await db.GetLastRecord();
+    const curHot = await db.GetCount('hot');
+    const curCold = await db.GetCount('cold');
+    let letter = await mail.MakeMailBody(last.hot,curHot,curHot-last.hot,last.cold,curCold,curCold-last.cold);
     await mail.SendMail('efimov-76@yandex.ru', letter );
     response.status(200).send();
 });
