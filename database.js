@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://vodomerUser:Pepelatz01@cluster0.eneo3.mongodb.net/vodomerDb?retryWrites=true&w=majority";
+const config = require('./config.json');
+const uri = `mongodb+srv://${config["mongo-user"]}:${config["mongo-password"]}@cluster0.eneo3.mongodb.net/vodomerDb?retryWrites=true&w=majority`;
 
 exports.GetHistory = async (dateFrom, dateTo) => {
     let client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -10,11 +11,16 @@ exports.GetHistory = async (dateFrom, dateTo) => {
     return result;
 };
 
-exports.SetLastRecord = async (hot, cold) => {
+exports.SetLastRecord = async (hot, cold, date) => {
     let client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
     const collection = client.db("vodomerDb").collection("history");
-    await collection.insertOne({ "hot" : hot, "cold" : cold, date : new Date() });
+    if(!date){
+        date = new Date();
+    }else{
+        date = new Date(date);
+    }
+    await collection.insertOne({ hot, cold, date });
     client.close();
 };
 

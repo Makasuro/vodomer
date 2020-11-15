@@ -57,7 +57,7 @@ srv.get("/api/history/last" , async (request, response) => {
 
 // запись текущего состояния счетчиков в данном месяце
 srv.post("/api/history/last", jsonParser, async (request, response) => {
-    await db.SetLastRecord(request.body.hot, request.body.cold);
+    await db.SetLastRecord(request.body.hot, request.body.cold, request.body.date);
     response.status(200).send('Ok');
 });
 
