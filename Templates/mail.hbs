@@ -1,1 +1,22 @@
-<h1> Hello world </h1>
+<h3> Показания счетчиков воды на {{date}}, квартира 437 </h3>
+
+<table>
+    <tr>
+        <td></td>
+        <td>Предыдущее показание счетчика</td>
+        <td>Текущее показание счетчика</td>
+        <td>Расход</td>
+    </tr>
+    <tr>
+        <td>Горячая вода</td>
+        <td>{{lastHot}}</td>
+        <td>{{currentHot}}</td>
+        <td>{{rateHot}}</td>
+    </tr>
+    <tr>
+        <td>Холодная вода</td>
+        <td>{{lastCold}}</td>
+        <td>{{currentCold}}</td>
+        <td>{{rateCold}}</td>
+    </tr>
+</table>

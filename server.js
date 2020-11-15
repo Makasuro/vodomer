@@ -14,7 +14,7 @@ var jsonParser = bs.json();
 
 // отправка письма
 srv.post("/api/mail", jsonParser, async (request, response) => {
-    let res = await mail.MakeMailBody();
+    let res = await mail.MakeMailBody(100,110,10,90,95,5);
     console.log(res);
     response.status(200).send();
 });
