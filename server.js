@@ -12,6 +12,10 @@ const srv = express();
 // create application/json parser
 var jsonParser = bs.json();
 
+srv.use('/', express.static('./wwwroot/radio'));
+srv.use('/vodomer', express.static('./wwwroot/vodomer'));
+srv.use('/home', express.static('./wwwroot/home'));
+
 // отправка письма
 srv.post("/api/mail", jsonParser, async (request, response) => {
     const last = await db.GetLastRecord();
@@ -20,11 +24,6 @@ srv.post("/api/mail", jsonParser, async (request, response) => {
     let letter = await mail.MakeMailBody(last.hot,curHot,curHot-last.hot,last.cold,curCold,curCold-last.cold);
     await mail.SendMail('efimov-76@yandex.ru', letter );
     response.status(200).send();
-});
-
-// определяем обработчик для маршрута "/"
-srv.get("/", (request, response) => {
-    response.send("<h2>Здесь будет сайт водомера</h2>");
 });
 
 // получение текущего значения счетчика горячей воды
