@@ -22,7 +22,7 @@ srv.post("/api/mail", jsonParser, async (request, response) => {
     const curHot = await db.GetCount('hot');
     const curCold = await db.GetCount('cold');
     let letter = await mail.MakeMailBody(last.hot,curHot,curHot-last.hot,last.cold,curCold,curCold-last.cold);
-    await mail.SendMail('efimov-76@yandex.ru', letter );
+    await mail.SendMail('asico@list.ru', letter );
     response.status(200).send();
 });
 
