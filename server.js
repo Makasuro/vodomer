@@ -75,4 +75,4 @@ srv.get("/api/history" , async (request, response) => {
     response.send(result);
 });
 
-srv.listen(1337);
+srv.listen(80);
