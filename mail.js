@@ -17,7 +17,7 @@ exports.SendMail = async (mailTo, mailBody) => {
       // send mail with defined transport object
       let info = await transporter.sendMail({
         from: 'efimov-76@yandex.ru', 
-        to: "makasuro76@gmail.com", 
+        to: mailTo, 
         subject: "Показания счетчиков воды, квартира 437", 
         html: mailBody
       });
