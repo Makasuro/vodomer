@@ -1,0 +1,36 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0", 
+        "title": "Водомер API",
+        "description": "API для чтения записи данных о состоянии счетчиков воды"
+    },   
+    "host": "http://raspberry.pi/api/",
+    "paths": {
+        "/water/hot": {
+        "get": {
+        "summary": "Получение значения счетчика горячей воды",
+        "responses": {
+            "200": {
+                "description": "OK"
+            }
+        }
+    },
+    "post": {
+        "summary": "Запись значения счетчика горячей воды",
+        "responses": {
+            "200": {
+                "description": "OK"
+            }
+        }
+    }
+    }   
+}  
+}   
+        
+    
+
+
+        
+
+
