@@ -1,0 +1,110 @@
+swagger: '2.0'
+info:
+  description: Описание методов API сайта водомер
+  version: 1.0.0
+  title: Vodomer API
+  # put the contact info for your development or API team
+  contact:
+    email: makasuro76@gmail.com
+paths:
+  /mail:
+    post:
+      summary: Отправка письма с текущими показаниями счетчиков
+      responses:
+        200:
+          description: Письмо отправлено
+  /water/hot:
+    get:
+      summary: Получение текущего состояния счетчика горячей воды
+      responses:
+        200:
+          description: Значение счетчика горячей воды
+          schema:
+            $ref: '#/definitions/HotCount'
+    post:
+      summary: Запись текущего состояния счетчика горячей воды
+      parameters:
+        - in: body
+          name: HotCount
+          description: Новое значение счетчика горячей воды
+          schema:
+            $ref: '#/definitions/HotCount'
+      responses:
+        200:
+          description: Текущее состояние счетчика горячей воды сохранено
+  /water/cold:
+    get:
+      summary: Получение текущего состояния счетчика холодной воды
+      responses:
+        200:
+          description: Значение счетчика холодной воды
+          schema:
+            $ref: '#/definitions/ColdCount'
+    post:
+      summary: Запись текущего состояния счетчика холодной воды
+      parameters:
+        - in: body
+          name: ColdCount
+          description: Новое значение счетчика холодной воды
+          schema:
+            $ref: '#/definitions/ColdCount'
+      responses:
+        200:
+          description: Текущее состояние счетчика холодной воды сохранено
+          
+  /history/last:
+    get:
+      summary: Получение последней записи из истории
+      responses:
+        200:
+          description: Последние значения счетчиков горячей и холодной воды из истории
+          schema:
+            $ref: '#/definitions/Counters'
+    post:
+      summary: Запись последних показаний счетчиков горячей и холодной воды в историю
+      parameters:
+        - in: body
+          name: Counters
+          description: Новые значения счетчиков
+          schema:
+            $ref: '#/definitions/Counters'      
+      responses:
+        200:
+          description: Показания счетчиков сохранены в историю
+  /history:
+    get:
+      summary: Получение показаний счетчиков зв всю историю
+      responses:
+        200:
+          description: Массив результатов
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Counters'      
+  
+definitions:
+  Counters:
+    type: object
+    properties:
+      cold:
+        type: integer
+      hot:
+        type: integer
+      date:
+        type: string
+  ColdCount:
+    type: object
+    properties:
+      cold:
+        type: integer
+  HotCount:
+    type: object
+    properties:
+      hot:
+        type: integer
+  
+# Added by API Auto Mocking Plugin
+host: raspberry.pi
+basePath: /api
+schemes:
+ - http

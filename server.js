@@ -11,7 +11,9 @@ const mail = require("./mail");
 // создаем сервер
 const srv = express();
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+//const swaggerDocument = require('./swagger.json');
 
 srv.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
