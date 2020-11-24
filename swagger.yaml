@@ -80,9 +80,24 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Counters'      
+              $ref: '#/definitions/HistoryCounters'      
   
 definitions:
+  HistoryCounters:
+    type: object
+    properties:
+      _id:
+        type: string
+      cold:
+        type: integer
+      hot:
+        type: integer
+      date:
+        type: string
+      rateHot:
+        type: integer
+      rateCold:
+        type: integer
   Counters:
     type: object
     properties:
