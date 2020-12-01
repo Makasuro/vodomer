@@ -4,6 +4,7 @@ const { hostname } = require("os");
 const bs = require('body-parser');
 const db = require("./database");
 const mail = require("./mail");
+var cors = require('cors')
 
  
 
@@ -23,7 +24,7 @@ var jsonParser = bs.json();
 srv.use('/', express.static('./wwwroot/radio'));
 srv.use('/vodomer', express.static('./wwwroot/vodomer'));
 srv.use('/home', express.static('./wwwroot/home'));
-
+app.use(cors());
 // отправка письма
 srv.post("/api/mail", jsonParser, async (request, response) => {
     const last = await db.GetLastRecord();
