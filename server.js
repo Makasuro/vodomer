@@ -20,11 +20,11 @@ srv.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // create application/json parser
 var jsonParser = bs.json();
-
+srv.use(cors());
 srv.use('/', express.static('./wwwroot/radio'));
 srv.use('/vodomer', express.static('./wwwroot/vodomer'));
 srv.use('/home', express.static('./wwwroot/home'));
-srv.use(cors());
+
 // отправка письма
 srv.post("/api/mail", jsonParser, async (request, response) => {
     const last = await db.GetLastRecord();
